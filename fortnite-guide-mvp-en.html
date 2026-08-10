@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortnite Beginner's Survival Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14151A;
+    --panel: #1B1D24;
+    --panel-2: #21242C;
+    --wood: #C9A66B;
+    --wood-dim: #7A6647;
+    --brick: #C1440E;
+    --brick-dim: #6E2A0E;
+    --metal: #9AA5B1;
+    --metal-dim: #52585F;
+    --storm: #8B5CF6;
+    --safe: #38BDF8;
+    --text: #F1EFE9;
+    --muted: #9CA3AF;
+    --gray: #8A8D93;
+    --green: #3FCB57;
+    --blue: #4A9EFF;
+    --purple: #A25BEB;
+    --gold: #E8B923;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:0.02em;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(20,21,26,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #2A2D36;
+    display:flex; justify-content:center;
+    padding:14px 20px;
+    gap:6px;
+    overflow-x:auto;
+  }
+  nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    padding:8px 16px;
+    border-radius:6px;
+    white-space:nowrap;
+    transition:all .2s;
+    border:1px solid transparent;
+  }
+  nav a:hover{color:var(--text); background:var(--panel-2); border-color:#333;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:78vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+    overflow:hidden;
+  }
+  .storm-rings{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:600px; height:600px;
+    pointer-events:none;
+  }
+  .storm-rings .ring{
+    position:absolute; border-radius:50%;
+    border:1.5px solid var(--storm);
+    opacity:0.35;
+    animation:pulse 4s ease-in-out infinite;
+  }
+  .ring.r1{width:600px;height:600px; top:0;left:0; animation-delay:0s;}
+  .ring.r2{width:420px;height:420px; top:90px;left:90px; border-color:var(--safe); animation-delay:0.6s;}
+  .ring.r3{width:240px;height:240px; top:180px;left:180px; border-color:var(--brick); animation-delay:1.2s;}
+  @keyframes pulse{
+    0%,100%{opacity:0.15; transform:scale(1);}
+    50%{opacity:0.5; transform:scale(1.03);}
+  }
+  .eyebrow{
+    font-family:'Rajdhani',sans-serif;
+    color:var(--storm);
+    font-weight:600;
+    letter-spacing:0.35em;
+    font-size:13px;
+    margin-bottom:18px;
+    z-index:2;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(38px,7vw,72px);
+    z-index:2;
+    line-height:1.05;
+    background:linear-gradient(180deg,#fff, #C9CDD6);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{
+    z-index:2;
+    max-width:520px;
+    color:var(--muted);
+    font-size:17px;
+    margin-top:20px;
+  }
+  .material-meter{
+    z-index:2;
+    display:flex; gap:6px;
+    margin-top:36px;
+  }
+  .material-meter span{
+    width:52px; height:8px; border-radius:2px;
+  }
+  .material-meter .m-wood{background:var(--wood);}
+  .material-meter .m-brick{background:var(--brick);}
+  .material-meter .m-metal{background:var(--metal);}
+  .meter-label{
+    z-index:2; font-size:12px; color:var(--muted); margin-top:10px; font-family:'Rajdhani',sans-serif; letter-spacing:0.1em;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:90px 20px; max-width:920px; margin:0 auto;}
+  .sec-head{margin-bottom:44px;}
+  .sec-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Rajdhani',sans-serif; font-weight:600;
+    font-size:13px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--tag-color, var(--storm));
+    margin-bottom:12px;
+  }
+  .sec-tag .dot{width:8px;height:8px;border-radius:2px; background:var(--tag-color, var(--storm));}
+  .sec-head h2{font-size:clamp(26px,4vw,38px);}
+  .sec-head .desc{color:var(--muted); margin-top:10px; max-width:600px; font-size:15px;}
+
+  .tier-divider{
+    height:4px; width:100%; border-radius:2px;
+    background:linear-gradient(90deg, var(--wood-dim), var(--wood) 33%, var(--brick) 33%, var(--brick) 66%, var(--metal) 66%, var(--metal));
+    opacity:0.5;
+    margin:0 auto;
+    max-width:920px;
+  }
+
+  /* ---------- LANDING CARDS ---------- */
+  .cards-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media(max-width:760px){.cards-3{grid-template-columns:1fr;}}
+  .land-card{
+    background:var(--panel);
+    border:1px solid #2A2D36;
+    border-radius:10px;
+    padding:24px;
+    transition:transform .2s, border-color .2s;
+  }
+  .land-card:hover{transform:translateY(-3px); border-color:var(--storm);}
+  .land-card .icon{font-size:26px; margin-bottom:14px;}
+  .land-card h3{font-size:19px; margin-bottom:8px; color:var(--text);}
+  .land-card .risk{
+    display:inline-block; font-size:11px; font-family:'Rajdhani',sans-serif; font-weight:600;
+    letter-spacing:0.1em; padding:3px 9px; border-radius:4px; margin-bottom:12px;
+  }
+  .risk.low{background:rgba(63,203,87,0.15); color:var(--green);}
+  .risk.mid{background:rgba(232,185,35,0.15); color:var(--gold);}
+  .risk.high{background:rgba(193,68,14,0.15); color:#FF7A45;}
+  .land-card p{font-size:14px; color:var(--muted);}
+
+  /* ---------- LOOT RARITY ---------- */
+  .rarity-list{display:flex; flex-direction:column; gap:10px;}
+  .rarity-row{
+    display:flex; align-items:center; gap:16px;
+    background:var(--panel);
+    border:1px solid #2A2D36;
+    border-radius:8px;
+    padding:14px 18px;
+  }
+  .rarity-chip{
+    width:80px; flex-shrink:0;
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:12.5px;
+    text-align:center; padding:6px 0; border-radius:5px; color:#14151A;
+  }
+  .rarity-row .r-name{font-weight:600; min-width:80px;}
+  .rarity-row .r-note{color:var(--muted); font-size:13.5px;}
+  .c-gray{background:var(--gray);}
+  .c-green{background:var(--green);}
+  .c-blue{background:var(--blue);}
+  .c-purple{background:var(--purple);}
+  .c-gold{background:var(--gold);}
+
+  .priority-box{
+    margin-top:28px;
+    background:var(--panel-2);
+    border-left:3px solid var(--safe);
+    border-radius:0 8px 8px 0;
+    padding:20px 24px;
+  }
+  .priority-box h4{font-family:'Rajdhani',sans-serif; color:var(--safe); font-size:15px; letter-spacing:0.05em; margin-bottom:10px;}
+  .priority-box ol{padding-left:20px; color:var(--text); font-size:14.5px;}
+  .priority-box li{margin-bottom:6px;}
+  .priority-box li b{color:var(--safe);}
+
+  /* ---------- BUILDING ---------- */
+  .mat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:36px;}
+  @media(max-width:760px){.mat-grid{grid-template-columns:1fr;}}
+  .mat-card{
+    border-radius:10px; padding:22px; position:relative; overflow:hidden;
+    background:var(--panel); border:1px solid #2A2D36; border-top:4px solid var(--mc);
+  }
+  .mat-card h3{color:var(--mc); font-size:20px; margin-bottom:6px;}
+  .mat-card .stat-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted); margin-top:14px; padding-top:12px; border-top:1px dashed #333;}
+  .mat-card .stat-row b{color:var(--text); display:block; font-size:15px; font-family:'Rajdhani',sans-serif;}
+
+  .tech-list{display:flex; flex-direction:column; gap:14px;}
+  .tech-item{
+    display:flex; gap:16px; align-items:flex-start;
+    background:var(--panel); border:1px solid #2A2D36; border-radius:8px; padding:18px 20px;
+  }
+  .tech-item .num{
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:22px; color:var(--brick);
+    min-width:32px;
+  }
+  .tech-item h4{font-size:16px; margin-bottom:4px;}
+  .tech-item p{font-size:14px; color:var(--muted);}
+
+  /* ---------- TACTICS ---------- */
+  .tac-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:760px){.tac-grid{grid-template-columns:1fr;}}
+  .tac-card{background:var(--panel); border:1px solid #2A2D36; border-radius:10px; padding:22px;}
+  .tac-card .badge{
+    display:inline-block; font-family:'Rajdhani',sans-serif; font-weight:600; font-size:11px;
+    letter-spacing:0.1em; color:var(--storm); border:1px solid var(--storm); border-radius:20px; padding:3px 12px; margin-bottom:12px;
+  }
+  .tac-card h3{font-size:18px; margin-bottom:8px;}
+  .tac-card p{font-size:14px; color:var(--muted);}
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{display:flex; flex-direction:column; gap:10px;}
+  .check-item{
+    display:flex; align-items:center; gap:14px;
+    background:var(--panel); border:1px solid #2A2D36; border-radius:8px;
+    padding:14px 18px; cursor:pointer; transition:all .2s; user-select:none;
+  }
+  .check-item:hover{border-color:#444;}
+  .check-item.done{border-color:var(--green); background:rgba(63,203,87,0.06);}
+  .check-item .box{
+    width:20px; height:20px; border-radius:5px; border:2px solid #444; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:13px; transition:all .2s;
+  }
+  .check-item.done .box{background:var(--green); border-color:var(--green); color:#14151A;}
+  .check-item span.label{font-size:14.5px;}
+  .check-item.done span.label{color:var(--muted); text-decoration:line-through;}
+  .progress-wrap{margin-bottom:20px;}
+  .progress-bar{height:8px; background:#2A2D36; border-radius:4px; overflow:hidden;}
+  .progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--wood),var(--brick),var(--metal)); transition:width .3s;}
+  .progress-text{font-size:13px; color:var(--muted); margin-top:8px; font-family:'Rajdhani',sans-serif;}
+
+  footer{text-align:center; padding:50px 20px 70px; color:#555; font-size:13px;}
+  footer a{color:#777;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#landing">Landing</a>
+  <a href="#loot">Loot</a>
+  <a href="#building">Building</a>
+  <a href="#tactics">Tactics</a>
+  <a href="#checklist">Checklist</a>
+</nav>
+
+<div class="hero">
+  <div class="storm-rings">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+  </div>
+  <div class="eyebrow">Beginner Survival Guide</div>
+  <h1 class="display">Fortnite Beginner's Guide</h1>
+  <p>From dropping off the Battle Bus to the final circle — the four stages that trip up new players, explained clearly.</p>
+  <div class="material-meter">
+    <span class="m-wood"></span><span class="m-brick"></span><span class="m-metal"></span>
+  </div>
+  <div class="meter-label">WOOD · BRICK · METAL — YOUR THREE-STAGE LIFELINE</div>
+</div>
+
+<div class="tier-divider"></div>
+
+<!-- ============ LANDING ============ -->
+<section id="landing">
+  <div class="sec-head">
+    <div class="sec-tag" style="--tag-color:var(--safe)"><span class="dot"></span>PHASE 01</div>
+    <h2>Landing Spot Strategy</h2>
+    <p class="desc">Where you land decides whether you survive the first two minutes. Don't rush into hot drops — pick a strategy that matches your goal.</p>
+  </div>
+  <div class="cards-3">
+    <div class="land-card">
+      <div class="icon">🌲</div>
+      <span class="risk low">Low Risk</span>
+      <h3>Edge-of-Map POI</h3>
+      <p>Smaller locations on the map's edge draw fewer players. Loot in peace and get comfortable with your controls — the tradeoff is a longer rotation into the zone later.</p>
+    </div>
+    <div class="land-card">
+      <div class="icon">🏚️</div>
+      <span class="risk mid">Medium Risk</span>
+      <h3>Secondary POI</h3>
+      <p>Not the hottest drop, but still solid loot with moderate foot traffic. Good for players who want to practice fights without instantly getting third-partied.</p>
+    </div>
+    <div class="land-card">
+      <div class="icon">🔥</div>
+      <span class="risk high">High Risk</span>
+      <h3>Named Landmark / Hot Drop</h3>
+      <p>Best loot, but everyone else knows it too. You'll be in a gunfight the second you land. Not recommended for beginners unless you specifically want aim practice.</p>
+    </div>
+  </div>
+</section>
+
+<div class="tier-divider"></div>
+
+<!-- ============ LOOT ============ -->
+<section id="loot">
+  <div class="sec-head">
+    <div class="sec-tag" style="--tag-color:var(--gold)"><span class="dot"></span>PHASE 02</div>
+    <h2>Loot Priority</h2>
+    <p class="desc">Item color = rarity. The further right on the scale, the stronger the stats. Check the color before you waste inventory space on it.</p>
+  </div>
+  <div class="rarity-list">
+    <div class="rarity-row"><div class="rarity-chip c-gray">COMMON</div><div class="r-name">Grey/White</div><div class="r-note">Fine in a pinch — grab it early if nothing better is around</div></div>
+    <div class="rarity-row"><div class="rarity-chip c-green">UNCOMMON</div><div class="r-name">Green</div><div class="r-note">Usable from the early game, noticeably better damage</div></div>
+    <div class="rarity-row"><div class="rarity-chip c-blue">RARE</div><div class="r-name">Blue</div><div class="r-note">Your mid-game main — worth swapping out any green</div></div>
+    <div class="rarity-row"><div class="rarity-chip c-purple">EPIC</div><div class="r-name">Purple</div><div class="r-note">Grab it on sight — clear jump in fire rate/damage over blue</div></div>
+    <div class="rarity-row"><div class="rarity-chip c-gold">LEGENDARY</div><div class="r-name">Gold</div><div class="r-note">Top tier for the map — always pick it up</div></div>
+  </div>
+  <div class="priority-box">
+    <h4>▸ Recommended Looting Order for Beginners</h4>
+    <ol>
+      <li><b>Shield items (small/large shield potions)</b> — top priority, you're paper without shield</li>
+      <li><b>One ranged + one close-range weapon</b> — AR/sniper paired with a shotgun covers every distance</li>
+      <li><b>Healing items (bandages/med kits)</b> — carry enough for at least two full heals before moving on</li>
+      <li><b>Building materials</b> — grab them naturally as you loot, don't detour just to farm mats</li>
+      <li><b>Throwables (grenades/traps)</b> — nice to have if you have space, not a priority</li>
+    </ol>
+  </div>
+</section>
+
+<div class="tier-divider"></div>
+
+<!-- ============ BUILDING ============ -->
+<section id="building">
+  <div class="sec-head">
+    <div class="sec-tag" style="--tag-color:var(--brick)"><span class="dot"></span>PHASE 03</div>
+    <h2>Building Basics</h2>
+    <p class="desc">Building is what sets Fortnite apart from every other shooter. Understanding the three materials is step one to staying alive.</p>
+  </div>
+
+  <div class="mat-grid">
+    <div class="mat-card" style="--mc:var(--wood)">
+      <h3>Wood</h3>
+      <p style="color:var(--muted); font-size:13.5px;">Builds instantly and is easy to farm in bulk, but breaks the fastest under fire.</p>
+      <div class="stat-row"><div>Build Speed<b>★★★★★</b></div><div>Durability<b>★★☆☆☆</b></div></div>
+    </div>
+    <div class="mat-card" style="--mc:var(--brick)">
+      <h3>Brick</h3>
+      <p style="color:var(--muted); font-size:13.5px;">The sweet spot between speed and durability — your everyday go-to material.</p>
+      <div class="stat-row"><div>Build Speed<b>★★★☆☆</b></div><div>Durability<b>★★★★☆</b></div></div>
+    </div>
+    <div class="mat-card" style="--mc:var(--metal)">
+      <h3>Metal</h3>
+      <p style="color:var(--muted); font-size:13.5px;">The tankiest but slowest to place — the go-to for turtling in the final circle.</p>
+      <div class="stat-row"><div>Build Speed<b>★★☆☆☆</b></div><div>Durability<b>★★★★★</b></div></div>
+    </div>
+  </div>
+
+  <div class="tech-list">
+    <div class="tech-item">
+      <div class="num">01</div>
+      <div><h4>Box Up First</h4><p>Getting shot at? Instinct number one: four walls plus a roof/ramp to fully enclose yourself before deciding what to do next. Never trade shots standing in the open.</p></div>
+    </div>
+    <div class="tech-item">
+      <div class="num">02</div>
+      <div><h4>Ramp Rush</h4><p>Chain ramps quickly to gain height fast, grabbing the high-ground advantage. A core move for both pushing and escaping.</p></div>
+    </div>
+    <div class="tech-item">
+      <div class="num">03</div>
+      <div><h4>Edit, Don't Destroy</h4><p>Need a window or a doorway? Use the edit function to cut a hole rather than breaking the whole wall — you keep your structure intact and stay protected.</p></div>
+    </div>
+    <div class="tech-item">
+      <div class="num">04</div>
+      <div><h4>Don't Over-Farm Mats</h4><p>Around 200 of each material is enough for most fights. You don't need to cap out at 999 — that extra time is better spent looting or repositioning.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="tier-divider"></div>
+
+<!-- ============ TACTICS ============ -->
+<section id="tactics">
+  <div class="sec-head">
+    <div class="sec-tag" style="--tag-color:var(--storm)"><span class="dot"></span>PHASE 04</div>
+    <h2>Mid-to-Late Game Tactics</h2>
+    <p class="desc">Once you're past the early game, it's less about reflexes and more about game sense — reading the storm, holding position, and watching your back.</p>
+  </div>
+  <div class="tac-grid">
+    <div class="tac-card">
+      <div class="badge">STORM READING</div>
+      <h3>Rotate Early</h3>
+      <p>Don't wait until the storm is closing in to move. Plan your route the moment the next circle is announced, and prioritize edge-of-zone or high-ground spots while keeping mats in reserve.</p>
+    </div>
+    <div class="tac-card">
+      <div class="badge">THIRD-PARTIES</div>
+      <h3>Watch for the Third Party</h3>
+      <p>Gunfire gives away both players' positions. If a fight runs past 10 seconds, start checking your flanks and rear — build cover while you fight if a third squad might be closing in.</p>
+    </div>
+    <div class="tac-card">
+      <div class="badge">POSITIONING</div>
+      <h3>Take High Ground / Cover</h3>
+      <p>Endgame fights are won on terrain. Take the long way around to grab a high perch rather than trading shots in the open.</p>
+    </div>
+    <div class="tac-card">
+      <div class="badge">PACING</div>
+      <h3>Don't Fight Every Fight</h3>
+      <p>Not every encounter is worth taking. If the enemy clearly out-guns or out-numbers you, rotating away and surviving to the next circle is a win too.</p>
+    </div>
+  </div>
+</section>
+
+<div class="tier-divider"></div>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist">
+  <div class="sec-head">
+    <div class="sec-tag" style="--tag-color:var(--green)"><span class="dot"></span>QUICK REFERENCE</div>
+    <h2>Pre-Match Checklist</h2>
+    <p class="desc">Run through this before you drop to build good habits. Click to check off — resets each time you reload the page.</p>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+    <div class="progress-text" id="ptext">0 / 6 complete</div>
+  </div>
+  <div class="checklist" id="checklist-items">
+    <div class="check-item" data-i="0"><div class="box"></div><span class="label">Pick a landing strategy before you drop: farm or fight</span></div>
+    <div class="check-item" data-i="1"><div class="box"></div><span class="label">Prioritize shields — look for blue potions first</span></div>
+    <div class="check-item" data-i="2"><div class="box"></div><span class="label">Carry one ranged and one close-range weapon</span></div>
+    <div class="check-item" data-i="3"><div class="box"></div><span class="label">Stock roughly 200 of each material</span></div>
+    <div class="check-item" data-i="4"><div class="box"></div><span class="label">Plan your route the second the next circle is announced</span></div>
+    <div class="check-item" data-i="5"><div class="box"></div><span class="label">Watch your flanks after 10+ seconds in any gunfight</span></div>
+  </div>
+</section>
+
+<footer>MVP v0.1 · Content updated as the game evolves</footer>
+
+<script>
+  const items = document.querySelectorAll('.check-item');
+  const fill = document.getElementById('pfill');
+  const text = document.getElementById('ptext');
+  function update(){
+    const done = document.querySelectorAll('.check-item.done').length;
+    fill.style.width = (done/items.length*100) + '%';
+    text.textContent = done + ' / ' + items.length + ' complete';
+  }
+  items.forEach(it=>{
+    it.addEventListener('click', ()=>{
+      it.classList.toggle('done');
+      it.querySelector('.box').textContent = it.classList.contains('done') ? '✓' : '';
+      update();
+    });
+  });
+</script>
+
+</body>
+</html>
